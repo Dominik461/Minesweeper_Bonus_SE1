@@ -20,6 +20,9 @@ public class Main {
      */
 
     public static void main( String[] args ) {
+        int size = 10, mines = 15;
+        Field [][] fieldArray = new Field[size][size];
+
        log.debug("You may configure 'src/main/resources/log4j2.xml' ");
        log.debug("for adapting both console and 'A1.log' file output");
 
