@@ -13,5 +13,6 @@ public class MainTest {
     @Test
     public void testApp() {
         Assert.assertEquals( 33, Main.add(30, 3));
+
     }
 }
