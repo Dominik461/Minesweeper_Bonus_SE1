@@ -77,7 +77,7 @@
             <transformer
                     implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
               <manifestEntries>
-                <Main-Class>org.example.App</Main-Class>
+                <Main-Class>org.example.Main</Main-Class>
                 <Multi-Release>true</Multi-Release>
               </manifestEntries>
             </transformer>

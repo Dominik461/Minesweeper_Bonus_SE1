@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
  * <a target="_blank" href="https://highlightjs.org">highlight.js</a> syntax highlighting support in Javadoc.</p>
  *
  */
-public class HighlightSample {
+public class Field {
 
     /**
      * <p>Executing {@link #printCurrentDay()} according to its documentation.</p>
@@ -19,7 +19,7 @@ public class HighlightSample {
 
         System.out.println("Current date is:");
 
-        HighlightSample.printCurrentDay();
+        Field.printCurrentDay();
     }
 
 

@@ -10,8 +10,8 @@ import org.apache.logging.log4j.Logger;
  * and A1.log containing debugging output.
  */
 
-public class App {
-    private static Logger log = LogManager.getLogger(App.class);
+public class Main {
+    private static Logger log = LogManager.getLogger(Main.class);
 
     /**
      * Your application's main entry point.
