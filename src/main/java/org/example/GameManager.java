@@ -5,25 +5,32 @@ import java.util.Scanner;
 
 public class GameManager {
     Random random = new Random(System.currentTimeMillis());
-    public Field[][] fillArray(Field[][] fields, int size, int mines){
+    //Gets an empty array of Fields with the size of the board and how many mines the game has
+        public Field[][] fillArray(Field[][] fields, int size, int mines){
         for (int x = 0; x < size; x++) {
             for (int y = 0; y < size; y++) {
+                //Adds for each space in the array a Field object
                 fields[x][y] = new Field();
             }
         }
+        //Calls the setMines method to place the mines before it is being returned for use
         return setMines(fields, size, mines);
     }
 
+    //Gets an array filled with Field objects with the size of the board and how many mines the game has
     private Field[][] setMines(Field[][] fields, int size, int mines) {
+        //Coordinates to be used to for the placement of a mine
         int x, y;
         for (int i = 0; i <= mines; i++) {
+            //Will loop until it finds a Field object that has not yet a mine
             do {
+                //Sets a random value that is between 0 and the size of the board -1
                 x = random.nextInt(size);
                 y = random.nextInt(size);
+                //Checks if the Field object is already mined
                 if(!fields[x][y].getIsMine())
                     fields[x][y].setMine(true);
             } while(!fields[x][y].getIsMine());
-            fields[x][y].setMine(true);
         }
         return fields;
     }
