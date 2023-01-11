@@ -22,7 +22,8 @@ public class Main {
     public static void main( String[] args ) {
         GameManager manager = new GameManager();
 
-        int size = 10, mines = 15;
+        final int size = 10, mines = 15;
+        int x,y;
         Field [][] fieldArray = new Field[size][size];
         manager.fillArray(fieldArray, size, mines);
         manager.fieldOutput(fieldArray, size);
@@ -37,14 +38,5 @@ public class Main {
         // o = bomb
  }
 
-    /**
-     * This method purely exists for providing Junit tests.
-     *
-     * @param a first parameter
-     * @param b second parameter
-     * @return the sum of both parameters.
-     */
-    public static int add(final int a, final int b) {
-        return a + b;
-    }
+ //TODO updateFieldArray method
 }
