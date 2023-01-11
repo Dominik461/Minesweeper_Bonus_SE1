@@ -1,20 +1,21 @@
 package org.example;
 
 public class Field {
-    private boolean isMine , isCovered;
+    private boolean isBomb, isCovered, isFlag;
     private String type;
 
     public Field (){
-        isMine = false;
+        isBomb = false;
         isCovered = true;
+        isFlag = false;
         type = "X";
     }
 
     public void setCovered(boolean covered) {
         isCovered = covered;
     }
-    public void setMine(boolean mine) {
-        isMine = mine;
+    public void setBomb(boolean bomb) {
+        isBomb = bomb;
     }
 
     public boolean getIsCovered() {
@@ -22,7 +23,7 @@ public class Field {
     }
 
     public boolean getIsMine() {
-        return isMine;
+        return isBomb;
     }
 
     public String getType() {
@@ -31,5 +32,13 @@ public class Field {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public boolean isFlag() {
+        return isFlag;
+    }
+
+    public void setFlag(boolean flag) {
+        isFlag = flag;
     }
 }
