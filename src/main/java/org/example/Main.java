@@ -20,37 +20,22 @@ public class Main {
      */
 
     public static void main( String[] args ) {
+        GameManager manager = new GameManager();
+
         int size = 10, mines = 15;
         Field [][] fieldArray = new Field[size][size];
+        manager.fillArray(fieldArray, size, mines);
+        manager.fieldOutput(fieldArray, size);
+        manager.getUserAction();
 
-       log.debug("You may configure 'src/main/resources/log4j2.xml' ");
-       log.debug("for adapting both console and 'A1.log' file output");
+        log.debug("You may configure 'src/main/resources/log4j2.xml' ");
+        log.debug("for adapting both console and 'A1.log' file output");
 
 
         // X: covered
         // space = uncovered
         // o = bomb
-
-        System.out.println("    0  1  2  3  4  5  6  7  8  9 ");
-        System.out.print("------------------------------");
-        for (int j = 0; j<size; j++){
-            System.out.print("\n" + j + " |" );
-            for (int i = 0; i<size; i++) System.out.print(fieldArray[j][i]);
-
-            /*
-            System.out.println("\n1 |");
-            System.out.println("2 |");
-            System.out.println("3 |");
-            System.out.println("4 |");
-            System.out.println("5 |");
-            System.out.println("6 |");
-            System.out.println("7 |");
-            System.out.println("8 |");
-            System.out.println("9 |");
-             */
-        }
-
-    }
+ }
 
     /**
      * This method purely exists for providing Junit tests.
