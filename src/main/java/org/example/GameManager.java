@@ -1,7 +1,6 @@
 package org.example;
 
 import java.util.Random;
-import java.util.Scanner;
 
 public class GameManager {
     private int size;
@@ -37,7 +36,7 @@ public class GameManager {
                 y = random.nextInt(size);
                 //Checks if the Field object is already mined
                 if(!fields[x][y].getIsMine())
-                    fields[x][y].setMine(true);
+                    fields[x][y].setBomb(true);
             } while(!fields[x][y].getIsMine());
         }
         return fields;
@@ -83,7 +82,12 @@ public class GameManager {
             int action = scan.nextInt();
 
             switch (action){
-                case 1: uncover();
+                case 1:
+                    System.out.println("Please type in the x coordinate of your field");
+                    int x = scan.nextInt();
+                    System.out.println("Please type in the y coordinate of your field");
+                    int y = scan.nextInt();
+                    uncover(x,y);
                 case 2: ;
                 default:
                     System.out.println("Please choose from the options above");
@@ -93,10 +97,17 @@ public class GameManager {
             throw new RuntimeException(e);
         }
     }
-
-    //Checks if the chosen field
-    private void uncover() {
-
+    */
+    /*
+    Checks if the chosen field is covered, exists, is not a bomb and not a flag
+    then uncovers the field
+     */
+    public void uncover(int x, int y) {
+        Field field = getFieldByCoordinates(x,y);
+        if(validMove(x,y,size) && field.getIsCovered() &&  !field.getIsMine() && !field.isFlag()){
+            fieldArray[x][y].setCovered(false);
+        }
+        //TODO change string X to " "
     }
 
     /*
