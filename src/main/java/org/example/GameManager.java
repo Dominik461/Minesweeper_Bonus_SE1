@@ -1,6 +1,7 @@
 package org.example;
 
 import java.util.Random;
+import java.util.Scanner;
 
 public class GameManager {
     Random random = new Random(System.currentTimeMillis());
@@ -35,6 +36,28 @@ public class GameManager {
         if(field.getIsCovered())
             field.setType("F");
         return field.getType();
+    }
+
+    public void fieldOutput(Field[][] fieldArray, int size) {
+        System.out.println("0  1  2  3  4  5  6  7  8  9");
+        System.out.print("---------------------------------");
+
+        for (int i = 0; i<size; i++){
+
+            System.out.print("\n" + i + " |");
+            for (int j = 0; j<size; j++){
+                System.out.print(" " + fieldArray[i][j].getType() + " ");
+            }
+        }
+    }
+
+    public void getUserAction() {
+        try {
+            Scanner scan = new Scanner(System.in);
+            int action = scan.nextInt();
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
     }
 }
 
