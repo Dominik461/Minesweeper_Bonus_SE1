@@ -25,4 +25,11 @@ public class Field {
         return isMine;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 }
