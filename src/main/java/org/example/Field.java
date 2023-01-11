@@ -1,7 +1,12 @@
 package org.example;
 
 public class Field {
-    boolean isMine, isCovered = true;
+    private boolean isMine , isCovered;
+
+    public Field (){
+        isMine = false;
+        isCovered = true;
+    }
 
     public void setCovered(boolean covered) {
         isCovered = covered;
@@ -10,11 +15,11 @@ public class Field {
         isMine = mine;
     }
 
-    public boolean isCovered() {
+    public boolean getIsCovered() {
         return isCovered;
     }
 
-    public boolean isMine() {
+    public boolean getIsMine() {
         return isMine;
     }
 
