@@ -1,6 +1,5 @@
 package org.example;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 public class GameManager {
@@ -26,6 +25,16 @@ public class GameManager {
             fields[x][y].setMine(true);
         }
         return fields;
+    }
+
+    private boolean validMove(int x, int y, int size){
+        return x >= 0 && x < size && y >= 0 && y < size;
+    }
+
+    public String setFlag(Field field){
+        if(field.getIsCovered())
+            field.setType("F");
+        return field.getType();
     }
 }
 
