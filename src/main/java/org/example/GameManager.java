@@ -4,7 +4,15 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class GameManager {
+    private int size;
+    private Field[][] fieldArray;
     Random random = new Random(System.currentTimeMillis());
+    public void setSize(int size){
+        this.size = size;
+    }
+    public void setFieldArray(Field[][] fieldArray){
+        this.fieldArray = fieldArray;
+    }
     //Gets an empty array of Fields with the size of the board and how many mines the game has
         public Field[][] fillArray(Field[][] fields, int size, int mines){
         for (int x = 0; x < size; x++) {
@@ -35,12 +43,17 @@ public class GameManager {
         return fields;
     }
 
+    //Checks if the move is in the board
     private boolean validMove(int x, int y, int size){
         return x >= 0 && x < size && y >= 0 && y < size;
     }
 
+    /*
+    Sets a Flag if the field is still covered
+    If the field already has a flag it will be removed
+     */
     public String setFlag(Field[][] fields, int x, int y){
-        if(fields[x][y].getIsCovered())
+        if(fields[x][y].getIsCovered() && fields[x][y].getType().equals("X"))
             fields[x][y].setType("F");
         else if(fields[x][y].getIsCovered() && fields[x][y].getType().equals("F"))
             fields[x][y].setType("X");
@@ -61,7 +74,7 @@ public class GameManager {
     }
 
 
-    //Lets the player choose their action
+    /*Lets the player choose their action
     public void getUserAction() {
         System.out.println("1: Uncover field");
         System.out.println("2: Set flag");
@@ -84,6 +97,65 @@ public class GameManager {
     //Checks if the chosen field
     private void uncover() {
 
+    }
+
+    /*
+    Returns the field at the given coordinates
+     */
+    public Field getFieldByCoordinates(int x, int y){
+        return fieldArray[x][y];
+    }
+
+
+    /*
+    Checks for mines around the selected field
+    TODO implement
+     */
+    private int getMinesAround(Field[][] fields, int x, int y){
+        int counter = 0;
+
+        if(validMove(x-1, y-1, size)){
+            if(fields[x-1][y-1].getIsMine())
+                counter++;
+        }
+
+        if(validMove(x, y-1, size)){
+            if(fields[x][y-1].getIsMine())
+                counter++;
+        }
+
+
+        if(validMove(x+1, y-1, size)){
+            if(fields[x+1][y-1].getIsMine())
+                counter++;
+        }
+
+        if(validMove(x-1, y, size)){
+            if(fields[x-1][y].getIsMine())
+                counter++;
+        }
+
+        if(validMove(x+1, y, size)){
+            if(fields[x+1][y].getIsMine())
+                counter++;
+        }
+
+        if(validMove(x-1, y+1, size)){
+            if(fields[x-1][y+1].getIsMine())
+                counter++;
+        }
+
+        if(validMove(x, y+1, size)){
+            if(fields[x][y+1].getIsMine())
+                counter++;
+        }
+
+        if(validMove(x+1, y+1, size)){
+            if(fields[x+1][y+1].getIsMine())
+                counter++;
+        }
+
+        return counter;
     }
 }
 
