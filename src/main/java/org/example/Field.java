@@ -2,10 +2,12 @@ package org.example;
 
 public class Field {
     private boolean isMine , isCovered;
+    private String type;
 
     public Field (){
         isMine = false;
         isCovered = true;
+        type = "X";
     }
 
     public void setCovered(boolean covered) {
