@@ -32,10 +32,12 @@ public class GameManager {
         return x >= 0 && x < size && y >= 0 && y < size;
     }
 
-    public String setFlag(Field field){
-        if(field.getIsCovered())
-            field.setType("F");
-        return field.getType();
+    public String setFlag(Field[][] fields, int x, int y){
+        if(fields[x][y].getIsCovered())
+            fields[x][y].setType("F");
+        else if(fields[x][y].getIsCovered() && fields[x][y].getType().equals("F"))
+            fields[x][y].setType("X");
+        return fields[x][y].getType();
     }
 
     public void fieldOutput(Field[][] fieldArray, int size) {
