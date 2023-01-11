@@ -31,19 +31,24 @@ public class Main {
         // space = uncovered
         // o = bomb
 
-
         System.out.println("    0  1  2  3  4  5  6  7  8  9 ");
-        System.out.println("------------------------------");
-        System.out.println("0 |" );
-        System.out.println("1 |");
-        System.out.println("2 |");
-        System.out.println("3 |");
-        System.out.println("4 |");
-        System.out.println("5 |");
-        System.out.println("6 |");
-        System.out.println("7 |");
-        System.out.println("8 |");
-        System.out.println("9 |");
+        System.out.print("------------------------------");
+        for (int j = 0; j<size; j++){
+            System.out.print("\n" + j + " |" );
+            for (int i = 0; i<size; i++) System.out.print(fieldArray[j][i]);
+
+            /*
+            System.out.println("\n1 |");
+            System.out.println("2 |");
+            System.out.println("3 |");
+            System.out.println("4 |");
+            System.out.println("5 |");
+            System.out.println("6 |");
+            System.out.println("7 |");
+            System.out.println("8 |");
+            System.out.println("9 |");
+             */
+        }
 
     }
 
