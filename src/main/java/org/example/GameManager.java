@@ -25,11 +25,11 @@ public class GameManager {
 
     /**
      * Fills the array with Field objects that are created with the standard constructor
+     * after that calls the setMines method to place mines
      * @param bomb how many bomb there should be in each game
-     * @return calls the setMines method to place mines before returning the fieldArray
      */
     //Gets an empty array of Fields with the size of the board and how many bomb the game has
-    public Field[][] fillArray(int bomb){
+    public void fillArray(int bomb){
         for (int x = 0; x < size; x++) {
             for (int y = 0; y < size; y++) {
             //Adds for each space in the array a Field object
@@ -37,16 +37,15 @@ public class GameManager {
             }
         }
         //Calls the setMines method to place the bomb before it is being returned for use
-        return setMines(bomb);
+        setMines(bomb);
     }
 
     /**
      * Sets as many bombs as the int value of bombs. The do while loop is used to be sure that there a no duplicates
      * @param bomb how many bomb there should be in each game
-     * @return the filled fieldArray with bombs will be returned
      */
     //Gets an array filled with Field objects with the size of the board and how many bomb the game has
-    private Field[][] setMines(int bomb) {
+    private void setMines(int bomb) {
         //Coordinates to be used to for the placement of a mine
         int x, y;
         for (int i = 0; i <= bomb; i++) {
@@ -60,7 +59,6 @@ public class GameManager {
                     fieldArray[x][y].setBomb(true);
             } while(!fieldArray[x][y].getIsBomb());
         }
-        return fieldArray;
     }
 
     /**

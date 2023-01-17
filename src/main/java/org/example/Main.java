@@ -30,13 +30,13 @@ public class Main {
         boolean gameover = false;
         manager.setSize(size);
         manager.setFieldArray(fieldArray);
-        manager.fillArray(fieldArray, size, mines);
-        manager.fieldOutput(fieldArray, size);
+        manager.fillArray(mines);
 
         // X: covered
         // space = uncovered
         // Q = bomb
         do {
+            manager.fieldOutput();
             System.out.println("1: Uncover field");
             System.out.println("2: Set flag");
             try {
@@ -67,7 +67,6 @@ public class Main {
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
-            manager.fieldOutput(fieldArray, size);
         }while(!gameover);
  }
 
