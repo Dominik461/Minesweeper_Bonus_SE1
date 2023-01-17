@@ -6,60 +6,96 @@ public class GameManager {
     private int size;
     private Field[][] fieldArray;
     Random random = new Random(System.currentTimeMillis());
+
+    /**
+     * This will set the size for later use as the reference of the board size
+     * @param size is the size of the game board area
+     */
     public void setSize(int size){
         this.size = size;
     }
+
+    /**
+     * Sets the array for each field of the playing board
+     * @param fieldArray array with fields to use as the playing area
+     */
     public void setFieldArray(Field[][] fieldArray){
         this.fieldArray = fieldArray;
     }
-    //Gets an empty array of Fields with the size of the board and how many mines the game has
-        public Field[][] fillArray(Field[][] fields, int size, int mines){
+
+    /**
+     * Fills the array with Field objects that are created with the standard constructor
+     * @param bomb how many bomb there should be in each game
+     * @return calls the setMines method to place mines before returning the fieldArray
+     */
+    //Gets an empty array of Fields with the size of the board and how many bomb the game has
+    public Field[][] fillArray(int bomb){
         for (int x = 0; x < size; x++) {
             for (int y = 0; y < size; y++) {
-                //Adds for each space in the array a Field object
-                fields[x][y] = new Field();
+            //Adds for each space in the array a Field object
+                fieldArray[x][y] = new Field();
             }
         }
-        //Calls the setMines method to place the mines before it is being returned for use
-        return setMines(fields, size, mines);
+        //Calls the setMines method to place the bomb before it is being returned for use
+        return setMines(bomb);
     }
 
-    //Gets an array filled with Field objects with the size of the board and how many mines the game has
-    private Field[][] setMines(Field[][] fields, int size, int mines) {
+    /**
+     * Sets as many bombs as the int value of bombs. The do while loop is used to be sure that there a no duplicates
+     * @param bomb how many bomb there should be in each game
+     * @return the filled fieldArray with bombs will be returned
+     */
+    //Gets an array filled with Field objects with the size of the board and how many bomb the game has
+    private Field[][] setMines(int bomb) {
         //Coordinates to be used to for the placement of a mine
         int x, y;
-        for (int i = 0; i <= mines; i++) {
+        for (int i = 0; i <= bomb; i++) {
             //Will loop until it finds a Field object that has not yet a mine
             do {
                 //Sets a random value that is between 0 and the size of the board -1
                 x = random.nextInt(size);
                 y = random.nextInt(size);
                 //Checks if the Field object is already mined
-                if(!fields[x][y].getIsMine())
-                    fields[x][y].setBomb(true);
-            } while(!fields[x][y].getIsMine());
+                if(!fieldArray[x][y].getIsBomb())
+                    fieldArray[x][y].setBomb(true);
+            } while(!fieldArray[x][y].getIsBomb());
         }
-        return fields;
+        return fieldArray;
     }
 
+    /**
+     * Checks if a given move is with in the game board area
+     * @param x is the x coordinate of the entered field
+     * @param y is the y coordinate of the entered field
+     * @return will be True if it is in the game board area. Otherwise, it will return false.
+     */
     //Checks if the move is in the board
-    private boolean validMove(int x, int y, int size){
+    private boolean validMove(int x, int y){
         return x >= 0 && x < size && y >= 0 && y < size;
     }
 
+    /**
+     * If the field is still covered a "flag" will be placed on the field. If there is already a "flag" it will be removed.
+     * @param x coordinate for the fieldArray
+     * @param y coordinate for the fieldArray
+     * @return the String of the Field object from the selected Field of the fieldArray
+     */
     /*
     Sets a Flag if the field is still covered
     If the field already has a flag it will be removed
      */
-    public String setFlag(Field[][] fields, int x, int y){
-        if(fields[x][y].getIsCovered() && fields[x][y].getType().equals("X"))
-            fields[x][y].setType("F");
-        else if(fields[x][y].getIsCovered() && fields[x][y].getType().equals("F"))
-            fields[x][y].setType("X");
-        return fields[x][y].getType();
+    public String placeOrRemoveFlag(int x, int y){
+        if(fieldArray[x][y].getIsCovered() && fieldArray[x][y].getType().equals("X"))
+            fieldArray[x][y].setType("F");
+        else if(fieldArray[x][y].getIsCovered() && fieldArray[x][y].getType().equals("F"))
+            fieldArray[x][y].setType("X");
+        return fieldArray[x][y].getType();
     }
 
-    public void fieldOutput(Field[][] fieldArray, int size) {
+    /**
+     *Prints out the game board with each Field from the fieldArray
+     */
+    public void fieldOutput() {
         System.out.println("0  1  2  3  4  5  6  7  8  9");
         System.out.print("---------------------------------");
 
@@ -70,46 +106,32 @@ public class GameManager {
                 System.out.print(" " + fieldArray[i][j].getType() + " ");
             }
         }
+        System.out.println();
     }
 
-
-    /*Lets the player choose their action
-    public void getUserAction() {
-        System.out.println("1: Uncover field");
-        System.out.println("2: Set flag");
-        try {
-            Scanner scan = new Scanner(System.in);
-            int action = scan.nextInt();
-
-            switch (action){
-                case 1:
-                    System.out.println("Please type in the x coordinate of your field");
-                    int x = scan.nextInt();
-                    System.out.println("Please type in the y coordinate of your field");
-                    int y = scan.nextInt();
-                    uncover(x,y);
-                case 2: ;
-                default:
-                    System.out.println("Please choose from the options above");
-                    getUserAction();
-            }
-        }catch (Exception e){
-            throw new RuntimeException(e);
-        }
-    }
-    */
+    /**
+     * Uncovers the selected field on the game board if it is still covered
+     * @param x  coordinate for the fieldArray
+     * @param y coordinate for the fieldArray
+     */
     /*
     Checks if the chosen field is covered, exists, is not a bomb and not a flag
     then uncovers the field
      */
     public void uncover(int x, int y) {
         Field field = getFieldByCoordinates(x,y);
-        if(validMove(x,y,size) && field.getIsCovered() &&  !field.getIsMine() && !field.isFlag()){
+        if(validMove(x,y) && field.getIsCovered() &&  !field.getIsBomb() && !field.getIsFlag()){
             fieldArray[x][y].setCovered(false);
         }
         //TODO change string X to " "
     }
 
+    /**
+     * Gets the selected Field object from the fieldArray
+     * @param x coordinate for the fieldArray
+     * @param y coordinate for the fieldArray
+     * @return the selected Field object
+     */
     /*
     Returns the field at the given coordinates
      */
@@ -117,52 +139,57 @@ public class GameManager {
         return fieldArray[x][y];
     }
 
-
+    /**
+     * Counts how many bombs there are around the selected Field object
+     * @param x coordinate for the fieldArray
+     * @param y coordinate for the fieldArray
+     * @return an int value of how many bombs there are
+     */
     /*
     Checks for mines around the selected field
     TODO implement
      */
-    private int getMinesAround(Field[][] fields, int x, int y){
+    private int getMinesAround(int x, int y){
         int counter = 0;
 
-        if(validMove(x-1, y-1, size)){
-            if(fields[x-1][y-1].getIsMine())
+        if(validMove(x-1, y-1)){
+            if(fieldArray[x-1][y-1].getIsBomb())
                 counter++;
         }
 
-        if(validMove(x, y-1, size)){
-            if(fields[x][y-1].getIsMine())
+        if(validMove(x, y-1)){
+            if(fieldArray[x][y-1].getIsBomb())
                 counter++;
         }
 
 
-        if(validMove(x+1, y-1, size)){
-            if(fields[x+1][y-1].getIsMine())
+        if(validMove(x+1, y-1)){
+            if(fieldArray[x+1][y-1].getIsBomb())
                 counter++;
         }
 
-        if(validMove(x-1, y, size)){
-            if(fields[x-1][y].getIsMine())
+        if(validMove(x-1, y)){
+            if(fieldArray[x-1][y].getIsBomb())
                 counter++;
         }
 
-        if(validMove(x+1, y, size)){
-            if(fields[x+1][y].getIsMine())
+        if(validMove(x+1, y)){
+            if(fieldArray[x+1][y].getIsBomb())
                 counter++;
         }
 
-        if(validMove(x-1, y+1, size)){
-            if(fields[x-1][y+1].getIsMine())
+        if(validMove(x-1, y+1)){
+            if(fieldArray[x-1][y+1].getIsBomb())
                 counter++;
         }
 
-        if(validMove(x, y+1, size)){
-            if(fields[x][y+1].getIsMine())
+        if(validMove(x, y+1)){
+            if(fieldArray[x][y+1].getIsBomb())
                 counter++;
         }
 
-        if(validMove(x+1, y+1, size)){
-            if(fields[x+1][y+1].getIsMine())
+        if(validMove(x+1, y+1)){
+            if(fieldArray[x+1][y+1].getIsBomb())
                 counter++;
         }
 
