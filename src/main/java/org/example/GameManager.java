@@ -3,7 +3,7 @@ package org.example;
 import java.util.Random;
 
 public class GameManager {
-    private int size;
+    private int size, bombs;
     private Field[][] fieldArray;
     Random random = new Random(System.currentTimeMillis());
 
@@ -13,6 +13,10 @@ public class GameManager {
      */
     public void setSize(int size){
         this.size = size;
+    }
+
+    public void setBombs(int bombs) {
+        this.bombs = bombs;
     }
 
     /**
@@ -82,19 +86,21 @@ public class GameManager {
     Sets a Flag if the field is still covered
     If the field already has a flag it will be removed
      */
-    public String placeOrRemoveFlag(int x, int y){
-        if(fieldArray[x][y].getIsCovered() && fieldArray[x][y].getType().equals("X"))
-            fieldArray[x][y].setType("F");
-        else if(fieldArray[x][y].getIsCovered() && fieldArray[x][y].getType().equals("F"))
-            fieldArray[x][y].setType("X");
-        return fieldArray[x][y].getType();
+    public void placeOrRemoveFlag(int x, int y){
+        if(validMove(x,y)){
+            if(fieldArray[x][y].getIsCovered() && fieldArray[x][y].getType().equals("X"))
+                fieldArray[x][y].setType("F");
+            else if(fieldArray[x][y].getIsCovered() && fieldArray[x][y].getType().equals("F"))
+                fieldArray[x][y].setType("X");
+        }
+        System.out.println("The x and/or y coordinate was not within the game board!");
     }
 
     /**
      *Prints out the game board with each Field from the fieldArray
      */
     public void fieldOutput() {
-        System.out.println("0  1  2  3  4  5  6  7  8  9");
+        System.out.println("    0  1  2  3  4  5  6  7  8  9");
         System.out.print("---------------------------------");
 
         for (int i = 0; i<size; i++){
@@ -193,5 +199,6 @@ public class GameManager {
 
         return counter;
     }
+
 }
 
