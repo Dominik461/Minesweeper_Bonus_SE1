@@ -24,13 +24,14 @@ public class Main {
     public static void main( String[] args ) {
         GameManager manager = new GameManager();
 
-        final int size = 10, mines = 15;
+        final int size = 10, bombs = 15;
         int x,y;
         Field [][] fieldArray = new Field[size][size];
         boolean gameover = false;
         manager.setSize(size);
         manager.setFieldArray(fieldArray);
-        manager.fillArray(mines);
+        manager.setBombs(bombs);
+        manager.fillArray(bombs);
 
         // X: covered
         // space = uncovered
@@ -59,7 +60,7 @@ public class Main {
                         x = scan.nextInt();
                         System.out.println("Please type in the y coordinate of your field");
                         y = scan.nextInt();
-
+                        manager.placeOrRemoveFlag(x,y);
                         break;
                     default:
                         System.out.println("Please choose from the options above");
