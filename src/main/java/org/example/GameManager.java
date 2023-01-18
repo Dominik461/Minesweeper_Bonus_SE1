@@ -80,7 +80,6 @@ public class GameManager {
      * If the field is still covered a "flag" will be placed on the field. If there is already a "flag" it will be removed.
      * @param x coordinate for the fieldArray
      * @param y coordinate for the fieldArray
-     * @return the String of the Field object from the selected Field of the fieldArray
      */
     /*
     Sets a Flag if the field is still covered
@@ -125,7 +124,7 @@ public class GameManager {
         if(validMove(x,y) && field.getStatus() == Field.FieldStatus.COVERED){
             fieldArray[x][y].setCovered(false);
             if(getMinesAround(x,y) != 0)
-                fieldArray[x][y].setType(Integer.toString(getMinesAround(x, y)));
+                fieldArray[x][y].setBombsAround(getMinesAround(x, y));
             else
                 revealNearbyField(x,y);
 
@@ -207,7 +206,7 @@ public class GameManager {
         int counter = 0;
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                if(fieldArray[i][j].getIsFlag())
+                if(fieldArray[i][j].getStatus() == Field.FieldStatus.FLAG)
                     counter++;
             }
         }
@@ -224,14 +223,14 @@ public class GameManager {
                     adjacentX +=i;
                     adjacentY +=j;
                     if(validMove(adjacentX, adjacentY)){
-                        if(fieldArray[adjacentX][adjacentY].getIsCovered()){
+                        if(fieldArray[adjacentX][adjacentY].getStatus() == Field.FieldStatus.COVERED){
                             fieldArray[adjacentX][adjacentY].setCovered(false);
                             if(getMinesAround(adjacentX, adjacentY) == 0)
-                                fieldArray[adjacentX][adjacentY].setType(" ");
+                                fieldArray[adjacentX][adjacentY].setStatus(Field.FieldStatus.UNCOVERED);
                             else
-                                fieldArray[adjacentX][adjacentY].setType(Integer.toString(getMinesAround(adjacentX, adjacentY)));
+                                fieldArray[adjacentX][adjacentY].setBombsAround(getMinesAround(adjacentX, adjacentY));
 
-                            if(fieldArray[adjacentX][adjacentY].getType().equals(" "))
+                            if(fieldArray[adjacentX][adjacentY].getStatus() ==  Field.FieldStatus.UNCOVERED)
                                 revealNearbyField(adjacentX, adjacentY);
                         }
                     }
