@@ -59,9 +59,9 @@ public class GameManager {
                 x = random.nextInt(size);
                 y = random.nextInt(size);
                 //Checks if the Field object is already mined
-                if(!fieldArray[x][y].getIsBomb())
+                if(fieldArray[x][y].getStatus() == Field.FieldStatus.COVERED)
                     fieldArray[x][y].setBomb(true);
-            } while(!fieldArray[x][y].getIsBomb());
+            } while(fieldArray[x][y].getStatus() == Field.FieldStatus.COVERED);
         }
     }
 
@@ -87,19 +87,10 @@ public class GameManager {
     If the field already has a flag it will be removed
      */
     public void placeOrRemoveFlag(int x, int y){
-        if(validMove(x,y)){
-            if(fieldArray[x][y].getIsCovered() && fieldArray[x][y].getType().equals("X")){
-                fieldArray[x][y].setFlag(true);
-                fieldArray[x][y].setType("F");
-            }
-            else if(fieldArray[x][y].getIsCovered() && fieldArray[x][y].getType().equals("F")){
-                fieldArray[x][y].setType("X");
-                fieldArray[x][y].setFlag(false);
-            }
-
-        }
-        else
-            System.out.println("The x and/or y coordinate was not within the game board!");
+        if(fieldArray[x][y].getStatus() == Field.FieldStatus.COVERED)
+            fieldArray[x][y].setStatus(Field.FieldStatus.FLAG);
+        else if(fieldArray[x][y].getStatus() == Field.FieldStatus.FLAG)
+            fieldArray[x][y].setStatus(Field.FieldStatus.COVERED);
     }
 
     /**
@@ -114,7 +105,7 @@ public class GameManager {
 
             System.out.print("\n" + i + " |");
             for (int j = 0; j<size; j++){
-                System.out.print(" " + fieldArray[i][j].getType() + " ");
+                System.out.print(" " + fieldArray[i][j].getStatus().toString() + " ");
             }
         }
         System.out.println();
@@ -131,7 +122,7 @@ public class GameManager {
      */
     public void uncover(int x, int y) {
         Field field = getFieldByCoordinates(x,y);
-        if(validMove(x,y) && field.getIsCovered() &&  !field.getIsBomb() && !field.getIsFlag()){
+        if(validMove(x,y) && field.getStatus() == Field.FieldStatus.COVERED){
             fieldArray[x][y].setCovered(false);
             if(getMinesAround(x,y) != 0)
                 fieldArray[x][y].setType(Integer.toString(getMinesAround(x, y)));
@@ -139,6 +130,7 @@ public class GameManager {
                 revealNearbyField(x,y);
 
         }
+        //TODO change string X to " "
     }
 
     /**
@@ -168,43 +160,43 @@ public class GameManager {
         int counter = 0;
 
         if(validMove(x-1, y-1)){
-            if(fieldArray[x-1][y-1].getIsBomb())
+            if(fieldArray[x-1][y-1].getStatus() == Field.FieldStatus.BOMB)
                 counter++;
         }
 
         if(validMove(x, y-1)){
-            if(fieldArray[x][y-1].getIsBomb())
+            if(fieldArray[x][y-1].getStatus() == Field.FieldStatus.BOMB)
                 counter++;
         }
 
 
         if(validMove(x+1, y-1)){
-            if(fieldArray[x+1][y-1].getIsBomb())
+            if(fieldArray[x+1][y-1].getStatus() == Field.FieldStatus.BOMB)
                 counter++;
         }
 
         if(validMove(x-1, y)){
-            if(fieldArray[x-1][y].getIsBomb())
+            if(fieldArray[x-1][y].getStatus() == Field.FieldStatus.BOMB)
                 counter++;
         }
 
         if(validMove(x+1, y)){
-            if(fieldArray[x+1][y].getIsBomb())
+            if(fieldArray[x+1][y].getStatus() == Field.FieldStatus.BOMB)
                 counter++;
         }
 
         if(validMove(x-1, y+1)){
-            if(fieldArray[x-1][y+1].getIsBomb())
+            if(fieldArray[x-1][y+1].getStatus() == Field.FieldStatus.BOMB)
                 counter++;
         }
 
         if(validMove(x, y+1)){
-            if(fieldArray[x][y+1].getIsBomb())
+            if(fieldArray[x][y+1].getStatus() == Field.FieldStatus.BOMB)
                 counter++;
         }
 
         if(validMove(x+1, y+1)){
-            if(fieldArray[x+1][y+1].getIsBomb())
+            if(fieldArray[x+1][y+1].getStatus() == Field.FieldStatus.BOMB)
                 counter++;
         }
 

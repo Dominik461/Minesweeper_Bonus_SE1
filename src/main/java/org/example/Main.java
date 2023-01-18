@@ -38,32 +38,31 @@ public class Main {
         // Q = bomb
         do {
             manager.fieldOutput();
-            System.out.println("1: Uncover field");
+            System.out.println("\n\n1: Uncover field");
             System.out.println("2: Set flag");
             try {
                 Scanner scan = new Scanner(System.in);
                 int action = scan.nextInt();
 
                 switch (action) {
-                    case 1:
+                    case 1 -> {
                         System.out.println("Please type in the x coordinate of your field");
                         x = scan.nextInt();
                         System.out.println("Please type in the y coordinate of your field");
                         y = scan.nextInt();
                         manager.uncover(x, y);
-
-                        if(manager.getFieldByCoordinates(x,y).getType().equals("Q"))
+                        if (manager.getFieldByCoordinates(x, y).getStatus() == Field.FieldStatus.BOMB) {
                             gameover = true;
-                        break;
-                    case 2:
+                        }
+                    }
+                    case 2 -> {
                         System.out.println("Please type in the x coordinate of your field");
                         x = scan.nextInt();
                         System.out.println("Please type in the y coordinate of your field");
                         y = scan.nextInt();
                         manager.placeOrRemoveFlag(x,y);
-                        break;
-                    default:
-                        System.out.println("Please choose from the options above");
+                    }
+                    default -> System.out.println("Please choose from the options above");
                 }
             } catch (Exception e) {
                 throw new RuntimeException(e);
