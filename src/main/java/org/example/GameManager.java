@@ -222,22 +222,24 @@ public class GameManager {
             for (int j = -1; j < 2; j++) {
                 adjacentY = y;
                 adjacentX = x;
-                if (i != 0 && j != 0){
-                    adjacentX +=j;
-                    adjacentY +=i;
-                    if(validMove(adjacentY, adjacentX)){
-                        if(fieldArray[adjacentY][adjacentX].getStatus() == Field.FieldStatus.COVERED){
-                            fieldArray[adjacentY][adjacentX].setCovered(false);
-                            if(getMinesAround(adjacentY, adjacentX) == 0)
-                                fieldArray[adjacentY][adjacentX].setStatus(Field.FieldStatus.UNCOVERED);
-                            else
-                                fieldArray[adjacentY][adjacentX].setBombsAround(getMinesAround(adjacentY, adjacentX));
+                if (i == 0 && j == 0){
+                    continue;
+                }
+                adjacentX +=j;
+                adjacentY +=i;
+                if(validMove(adjacentY, adjacentX)){
+                    if(fieldArray[adjacentY][adjacentX].getStatus() == Field.FieldStatus.COVERED){
+                        fieldArray[adjacentY][adjacentX].setCovered(false);
+                        if(getMinesAround(adjacentY, adjacentX) == 0)
+                            fieldArray[adjacentY][adjacentX].setStatus(Field.FieldStatus.UNCOVERED);
+                        else
+                            fieldArray[adjacentY][adjacentX].setBombsAround(getMinesAround(adjacentY, adjacentX));
 
-                            if(fieldArray[adjacentY][adjacentX].getStatus() ==  Field.FieldStatus.UNCOVERED)
-                                revealNearbyField(adjacentY, adjacentX);
-                        }
+                        if(fieldArray[adjacentY][adjacentX].getBombsAround() == 0)
+                            revealNearbyField(adjacentY, adjacentX);
                     }
                 }
+
 
             }
         }
