@@ -88,18 +88,25 @@ public class GameManager {
      */
     public void placeOrRemoveFlag(int x, int y){
         if(validMove(x,y)){
-            if(fieldArray[x][y].getIsCovered() && fieldArray[x][y].getType().equals("X"))
+            if(fieldArray[x][y].getIsCovered() && fieldArray[x][y].getType().equals("X")){
+                fieldArray[x][y].setFlag(true);
                 fieldArray[x][y].setType("F");
-            else if(fieldArray[x][y].getIsCovered() && fieldArray[x][y].getType().equals("F"))
+            }
+            else if(fieldArray[x][y].getIsCovered() && fieldArray[x][y].getType().equals("F")){
                 fieldArray[x][y].setType("X");
+                fieldArray[x][y].setFlag(false);
+            }
+
         }
-        System.out.println("The x and/or y coordinate was not within the game board!");
+        else
+            System.out.println("The x and/or y coordinate was not within the game board!");
     }
 
     /**
      *Prints out the game board with each Field from the fieldArray
      */
     public void fieldOutput() {
+        System.out.println("Total bombs: "+ bombs+" flags placed: "+countFlags());
         System.out.println("    0  1  2  3  4  5  6  7  8  9");
         System.out.print("---------------------------------");
 
@@ -126,8 +133,9 @@ public class GameManager {
         Field field = getFieldByCoordinates(x,y);
         if(validMove(x,y) && field.getIsCovered() &&  !field.getIsBomb() && !field.getIsFlag()){
             fieldArray[x][y].setCovered(false);
+            if(getMinesAround(x,y) != 0)
+                fieldArray[x][y].setType(Integer.toString(getMinesAround(x, y)));
         }
-        //TODO change string X to " "
     }
 
     /**
@@ -200,5 +208,15 @@ public class GameManager {
         return counter;
     }
 
+    private int countFlags(){
+        int counter = 0;
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                if(fieldArray[i][j].getIsFlag())
+                    counter++;
+            }
+        }
+        return counter;
+    }
 }
 
