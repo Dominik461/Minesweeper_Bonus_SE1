@@ -69,6 +69,4 @@ public class Main {
             }
         }while(!gameover);
  }
-
- //TODO updateFieldArray method
 }
