@@ -4,12 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d6ffafde-e7c7-495c-86f0-7a5466964cd1" name="Changes" comment="replaced Field class booleans with FieldStatus enum">
+    <list default="true" id="d6ffafde-e7c7-495c-86f0-7a5466964cd1" name="Changes" comment="removed unnecessary comments">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Field.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Field.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/GameManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/GameManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/org/example/MainTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/example/MainTest.java" afterDir="false" />
     </list>
     <list id="310e1f7b-3cf3-4ab2-87c6-bc0e3aa666df" name="Changes by ^^" comment="Changes by Dominik&#10;Comments, new methods" />
     <option name="SHOW_DIALOG" value="false" />
@@ -61,7 +59,7 @@
       <workItem from="1673967841024" duration="1261000" />
       <workItem from="1674054090549" duration="1178000" />
       <workItem from="1674055612855" duration="7061000" />
-      <workItem from="1674076026861" duration="249000" />
+      <workItem from="1674076026861" duration="1772000" />
     </task>
     <task id="LOCAL-00001" summary="Renamed Classes">
       <created>1673370113016</created>
@@ -112,7 +110,14 @@
       <option name="project" value="LOCAL" />
       <updated>1673460890225</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="replaced Field class booleans with FieldStatus enum&#10;-errors">
+      <created>1674076416464</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1674076416464</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -137,6 +142,8 @@
     <MESSAGE value="Changes by Dominik&#10;Comments, new methods" />
     <MESSAGE value="added comments, methods" />
     <MESSAGE value="replaced Field class booleans with FieldStatus enum" />
-    <option name="LAST_COMMIT_MESSAGE" value="replaced Field class booleans with FieldStatus enum" />
+    <MESSAGE value="replaced Field class booleans with FieldStatus enum&#10;-errors" />
+    <MESSAGE value="removed unnecessary comments" />
+    <option name="LAST_COMMIT_MESSAGE" value="removed unnecessary comments" />
   </component>
 </project>
