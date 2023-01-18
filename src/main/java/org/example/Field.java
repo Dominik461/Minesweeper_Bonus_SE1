@@ -20,6 +20,7 @@ public class Field {
      */
     public void setCovered(boolean covered) {
         isCovered = covered;
+        if(!covered) setType(" ");
     }
     /**
      * Sets the boolean value of the Field object
