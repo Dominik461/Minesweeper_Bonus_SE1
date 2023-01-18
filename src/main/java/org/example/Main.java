@@ -33,9 +33,6 @@ public class Main {
         manager.setBombs(bombs);
         manager.fillArray(bombs);
 
-        // X: covered
-        // space = uncovered
-        // Q = bomb
         do {
             manager.fieldOutput();
             System.out.println("\n\n1: Uncover field");
