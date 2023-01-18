@@ -104,7 +104,10 @@ public class GameManager {
 
             System.out.print("\n" + i + " |");
             for (int j = 0; j<size; j++){
-                System.out.print(" " + fieldArray[i][j].getStatus().toString() + " ");
+                if(fieldArray[i][j].getBombsAround() == 0)
+                    System.out.print(" " + fieldArray[i][j].getStatus().toString() + " ");
+                else
+                    System.out.print(" " + fieldArray[i][j].getBombsAround() + " ");
             }
         }
         System.out.println();
