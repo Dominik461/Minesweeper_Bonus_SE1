@@ -34,10 +34,10 @@ public class GameManager {
      */
     //Gets an empty array of Fields with the size of the board and how many bomb the game has
     public void fillArray(int bomb){
-        for (int x = 0; x < size; x++) {
-            for (int y = 0; y < size; y++) {
+        for (int y = 0; y < size; y++) {
+            for (int x = 0; x < size; x++) {
             //Adds for each space in the array a Field object
-                fieldArray[x][y] = new Field();
+                fieldArray[y][x] = new Field();
             }
         }
         //Calls the setMines method to place the bomb before it is being returned for use
@@ -59,9 +59,9 @@ public class GameManager {
                 x = random.nextInt(size);
                 y = random.nextInt(size);
                 //Checks if the Field object is already mined
-                if(fieldArray[x][y].getStatus() == Field.FieldStatus.COVERED)
-                    fieldArray[x][y].setBomb(true);
-            } while(fieldArray[x][y].getStatus() == Field.FieldStatus.COVERED);
+                if(fieldArray[y][x].getStatus() == Field.FieldStatus.COVERED)
+                    fieldArray[y][x].setBomb(true);
+            } while(fieldArray[y][x].getStatus() == Field.FieldStatus.COVERED);
         }
     }
 
@@ -72,7 +72,7 @@ public class GameManager {
      * @return will be True if it is in the game board area. Otherwise, it will return false.
      */
     //Checks if the move is in the board
-    private boolean validMove(int x, int y){
+    private boolean validMove(int y, int x){
         return x >= 0 && x < size && y >= 0 && y < size;
     }
 
@@ -85,11 +85,11 @@ public class GameManager {
     Sets a Flag if the field is still covered
     If the field already has a flag it will be removed
      */
-    public void placeOrRemoveFlag(int x, int y){
-        if(fieldArray[x][y].getStatus() == Field.FieldStatus.COVERED)
-            fieldArray[x][y].setStatus(Field.FieldStatus.FLAG);
-        else if(fieldArray[x][y].getStatus() == Field.FieldStatus.FLAG)
-            fieldArray[x][y].setStatus(Field.FieldStatus.COVERED);
+    public void placeOrRemoveFlag(int y, int x){
+        if(fieldArray[y][x].getStatus() == Field.FieldStatus.COVERED)
+            fieldArray[y][x].setStatus(Field.FieldStatus.FLAG);
+        else if(fieldArray[y][x].getStatus() == Field.FieldStatus.FLAG)
+            fieldArray[y][x].setStatus(Field.FieldStatus.COVERED);
     }
 
     /**
@@ -100,14 +100,14 @@ public class GameManager {
         System.out.println("    0  1  2  3  4  5  6  7  8  9");
         System.out.print("---------------------------------");
 
-        for (int i = 0; i<size; i++){
+        for (int y = 0; y<size; y++){
 
-            System.out.print("\n" + i + " |");
-            for (int j = 0; j<size; j++){
-                if(fieldArray[i][j].getBombsAround() == 0)
-                    System.out.print(" " + fieldArray[i][j].getStatus().toString() + " ");
+            System.out.print("\n" + y + " |");
+            for (int x = 0; x<size; x++){
+                if(fieldArray[y][x].getBombsAround() == 0)
+                    System.out.print(" " + fieldArray[y][x].getStatus().toString() + " ");
                 else
-                    System.out.print(" " + fieldArray[i][j].getBombsAround() + " ");
+                    System.out.print(" " + fieldArray[y][x].getBombsAround() + " ");
             }
         }
         System.out.println();
@@ -122,14 +122,14 @@ public class GameManager {
     Checks if the chosen field is covered, exists, is not a bomb and not a flag
     then uncovers the field
      */
-    public void uncover(int x, int y) {
-        Field field = getFieldByCoordinates(x,y);
-        if(validMove(x,y) && field.getStatus() == Field.FieldStatus.COVERED){
-            fieldArray[x][y].setCovered(false);
-            if(getMinesAround(x,y) != 0)
-                fieldArray[x][y].setBombsAround(getMinesAround(x, y));
+    public void uncover(int y, int x) {
+        Field field = getFieldByCoordinates(y,x);
+        if(validMove(y,x) && field.getStatus() == Field.FieldStatus.COVERED){
+            fieldArray[y][x].setCovered(false);
+            if(getMinesAround(y,x) != 0)
+                fieldArray[y][x].setBombsAround(getMinesAround(y, x));
             else
-                revealNearbyField(x,y);
+                revealNearbyField(y,x);
 
         }
         //TODO change string X to " "
@@ -144,61 +144,61 @@ public class GameManager {
     /*
     Returns the field at the given coordinates
      */
-    public Field getFieldByCoordinates(int x, int y){
-        return fieldArray[x][y];
+    public Field getFieldByCoordinates(int y, int x){
+        return fieldArray[y][x];
     }
 
     /**
      * Counts how many bombs there are around the selected Field object
-     * @param x coordinate for the fieldArray
      * @param y coordinate for the fieldArray
+     * @param x coordinate for the fieldArray
      * @return an int value of how many bombs there are
      */
     /*
     Checks for mines around the selected field
     TODO implement
      */
-    private int getMinesAround(int x, int y){
+    private int getMinesAround(int y, int x){
         int counter = 0;
 
-        if(validMove(x-1, y-1)){
-            if(fieldArray[x-1][y-1].getStatus() == Field.FieldStatus.BOMB)
+        if(validMove(y-1, x-1)){
+            if(fieldArray[y-1][x-1].getStatus() == Field.FieldStatus.BOMB)
                 counter++;
         }
 
-        if(validMove(x, y-1)){
-            if(fieldArray[x][y-1].getStatus() == Field.FieldStatus.BOMB)
+        if(validMove(y, x-1)){
+            if(fieldArray[y][x-1].getStatus() == Field.FieldStatus.BOMB)
                 counter++;
         }
 
 
-        if(validMove(x+1, y-1)){
-            if(fieldArray[x+1][y-1].getStatus() == Field.FieldStatus.BOMB)
+        if(validMove(y+1, x-1)){
+            if(fieldArray[y+1][x-1].getStatus() == Field.FieldStatus.BOMB)
                 counter++;
         }
 
-        if(validMove(x-1, y)){
-            if(fieldArray[x-1][y].getStatus() == Field.FieldStatus.BOMB)
+        if(validMove(y-1, x)){
+            if(fieldArray[y-1][x].getStatus() == Field.FieldStatus.BOMB)
                 counter++;
         }
 
-        if(validMove(x+1, y)){
-            if(fieldArray[x+1][y].getStatus() == Field.FieldStatus.BOMB)
+        if(validMove(y+1, x)){
+            if(fieldArray[y+1][x].getStatus() == Field.FieldStatus.BOMB)
                 counter++;
         }
 
-        if(validMove(x-1, y+1)){
-            if(fieldArray[x-1][y+1].getStatus() == Field.FieldStatus.BOMB)
+        if(validMove(y-1, x+1)){
+            if(fieldArray[y-1][x+1].getStatus() == Field.FieldStatus.BOMB)
                 counter++;
         }
 
-        if(validMove(x, y+1)){
-            if(fieldArray[x][y+1].getStatus() == Field.FieldStatus.BOMB)
+        if(validMove(y, x+1)){
+            if(fieldArray[y][x+1].getStatus() == Field.FieldStatus.BOMB)
                 counter++;
         }
 
-        if(validMove(x+1, y+1)){
-            if(fieldArray[x+1][y+1].getStatus() == Field.FieldStatus.BOMB)
+        if(validMove(y+1, x+1)){
+            if(fieldArray[y+1][x+1].getStatus() == Field.FieldStatus.BOMB)
                 counter++;
         }
 
@@ -207,34 +207,34 @@ public class GameManager {
 
     private int countFlags(){
         int counter = 0;
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                if(fieldArray[i][j].getStatus() == Field.FieldStatus.FLAG)
+        for (int y = 0; y < size; y++) {
+            for (int x = 0; x < size; x++) {
+                if(fieldArray[y][x].getStatus() == Field.FieldStatus.FLAG)
                     counter++;
             }
         }
         return counter;
     }
 
-    private void revealNearbyField(int x, int y){
+    private void revealNearbyField(int y, int x){
         int adjacentX, adjacentY;
         for (int i = -1; i < 2; i++) {
             for (int j = -1; j < 2; j++) {
-                adjacentX = x;
                 adjacentY = y;
+                adjacentX = x;
                 if (i != 0 && j != 0){
-                    adjacentX +=i;
-                    adjacentY +=j;
-                    if(validMove(adjacentX, adjacentY)){
-                        if(fieldArray[adjacentX][adjacentY].getStatus() == Field.FieldStatus.COVERED){
-                            fieldArray[adjacentX][adjacentY].setCovered(false);
-                            if(getMinesAround(adjacentX, adjacentY) == 0)
-                                fieldArray[adjacentX][adjacentY].setStatus(Field.FieldStatus.UNCOVERED);
+                    adjacentX +=j;
+                    adjacentY +=i;
+                    if(validMove(adjacentY, adjacentX)){
+                        if(fieldArray[adjacentY][adjacentX].getStatus() == Field.FieldStatus.COVERED){
+                            fieldArray[adjacentY][adjacentX].setCovered(false);
+                            if(getMinesAround(adjacentY, adjacentX) == 0)
+                                fieldArray[adjacentY][adjacentX].setStatus(Field.FieldStatus.UNCOVERED);
                             else
-                                fieldArray[adjacentX][adjacentY].setBombsAround(getMinesAround(adjacentX, adjacentY));
+                                fieldArray[adjacentY][adjacentX].setBombsAround(getMinesAround(adjacentY, adjacentX));
 
-                            if(fieldArray[adjacentX][adjacentY].getStatus() ==  Field.FieldStatus.UNCOVERED)
-                                revealNearbyField(adjacentX, adjacentY);
+                            if(fieldArray[adjacentY][adjacentX].getStatus() ==  Field.FieldStatus.UNCOVERED)
+                                revealNearbyField(adjacentY, adjacentX);
                         }
                     }
                 }

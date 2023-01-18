@@ -46,21 +46,21 @@ public class Main {
 
                 switch (action) {
                     case 1 -> {
-                        System.out.println("Please type in the x coordinate of your field");
-                        x = scan.nextInt();
                         System.out.println("Please type in the y coordinate of your field");
                         y = scan.nextInt();
-                        manager.uncover(x, y);
-                        if (manager.getFieldByCoordinates(x, y).getStatus() == Field.FieldStatus.BOMB) {
+                        System.out.println("Please type in the x coordinate of your field");
+                        x = scan.nextInt();
+                        manager.uncover(y, x);
+                        if (manager.getFieldByCoordinates(y, x).getStatus() == Field.FieldStatus.BOMB) {
                             gameover = true;
                         }
                     }
                     case 2 -> {
-                        System.out.println("Please type in the x coordinate of your field");
-                        x = scan.nextInt();
                         System.out.println("Please type in the y coordinate of your field");
                         y = scan.nextInt();
-                        manager.placeOrRemoveFlag(x,y);
+                        System.out.println("Please type in the x coordinate of your field");
+                        x = scan.nextInt();
+                        manager.placeOrRemoveFlag(y,x);
                     }
                     default -> System.out.println("Please choose from the options above");
                 }
