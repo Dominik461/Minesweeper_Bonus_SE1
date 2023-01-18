@@ -12,6 +12,7 @@ public class Field {
     /*private boolean isBomb, isCovered, isFlag;
         private String type;*/
     private FieldStatus status;
+    private int bombsAround;
     /**
      * Sets the values for each variable when creating an object
      */
@@ -21,6 +22,7 @@ public class Field {
         isFlag = false;
         type = "X";*/
         status = FieldStatus.COVERED;
+        bombsAround = 0;
     }
 
     public enum FieldStatus {
@@ -54,6 +56,15 @@ public class Field {
         if(bomb) status = FieldStatus.BOMB;
         else status = FieldStatus.COVERED;
     }
+
+    public void setBombsAround(int bombsAround) {
+        this.bombsAround = bombsAround;
+    }
+
+    public int getBombsAround() {
+        return bombsAround;
+    }
+
     /**
      * Sets the boolean value of the Field object
      * @return will be True if it is covered. Otherwise, it will be False
