@@ -135,6 +135,9 @@ public class GameManager {
             fieldArray[x][y].setCovered(false);
             if(getMinesAround(x,y) != 0)
                 fieldArray[x][y].setType(Integer.toString(getMinesAround(x, y)));
+            else
+                revealNearbyField(x,y);
+
         }
     }
 
@@ -217,6 +220,33 @@ public class GameManager {
             }
         }
         return counter;
+    }
+
+    private void revealNearbyField(int x, int y){
+        int adjacentX, adjacentY;
+        for (int i = -1; i < 2; i++) {
+            for (int j = -1; j < 2; j++) {
+                adjacentX = x;
+                adjacentY = y;
+                if (i != 0 && j != 0){
+                    adjacentX +=i;
+                    adjacentY +=j;
+                    if(validMove(adjacentX, adjacentY)){
+                        if(fieldArray[adjacentX][adjacentY].getIsCovered()){
+                            fieldArray[adjacentX][adjacentY].setCovered(false);
+                            if(getMinesAround(adjacentX, adjacentY) == 0)
+                                fieldArray[adjacentX][adjacentY].setType(" ");
+                            else
+                                fieldArray[adjacentX][adjacentY].setType(Integer.toString(getMinesAround(adjacentX, adjacentY)));
+
+                            if(fieldArray[adjacentX][adjacentY].getType().equals(" "))
+                                revealNearbyField(adjacentX, adjacentY);
+                        }
+                    }
+                }
+
+            }
+        }
     }
 }
 
