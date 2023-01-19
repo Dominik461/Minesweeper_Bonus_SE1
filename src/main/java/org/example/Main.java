@@ -34,6 +34,7 @@ public class Main {
                         y = scan.nextInt();
                         System.out.println("Please type in the x coordinate of your field");
                         x = scan.nextInt();
+
                         manager.uncover(y, x);
                         if (manager.getFieldByCoordinates(y, x).getStatus() == Field.FieldStatus.BOMB) {
                             gameover = true;

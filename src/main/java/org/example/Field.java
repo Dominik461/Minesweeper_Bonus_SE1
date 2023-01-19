@@ -33,25 +33,7 @@ public class Field {
     public void setStatus(FieldStatus status) {
         this.status = status;
     }
-
-    /**
-     * Sets the boolean value of the Field object
-     * @param covered will be True if it is covered. Otherwise, it will be false
-     */
-    public void setCovered(boolean covered) {
-        status = FieldStatus.COVERED;
-        if(!covered) setStatus(FieldStatus.UNCOVERED);
-    }
-
-    /**
-     * Sets the boolean value of the Field object
-     * @param bomb will be True if it is a bomb. Otherwise, it will be false
-     */
-    public void setBomb(boolean bomb) {
-        if(bomb) status = FieldStatus.BOMB;
-        else status = FieldStatus.COVERED;
-    }
-
+    
     public void setBombsAround(int bombsAround) {
         this.bombsAround = bombsAround;
     }

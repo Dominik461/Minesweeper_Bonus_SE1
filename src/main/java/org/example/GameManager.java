@@ -74,7 +74,7 @@ public class GameManager {
                     continue;
                 //Checks if the Field object is already mined
                 if(fieldArray[y][x].getStatus() == Field.FieldStatus.COVERED)
-                    fieldArray[y][x].setBomb(true);
+                    fieldArray[y][x].setStatus(Field.FieldStatus.BOMB);
             } while(fieldArray[y][x].getStatus() == Field.FieldStatus.COVERED);
         }
     }
@@ -146,7 +146,7 @@ public class GameManager {
         }
         Field field = getFieldByCoordinates(y,x);
         if(validMove(y,x) && field.getStatus() == Field.FieldStatus.COVERED){
-            fieldArray[y][x].setCovered(false);
+            fieldArray[y][x].setStatus(Field.FieldStatus.UNCOVERED);
             if(getMinesAround(y,x) != 0)
                 fieldArray[y][x].setBombsAround(getMinesAround(y, x));
             else
@@ -176,7 +176,6 @@ public class GameManager {
      */
     /*
     Checks for mines around the selected field
-    TODO implement
      */
     private int getMinesAround(int y, int x){
         int counter = 0;
@@ -250,7 +249,7 @@ public class GameManager {
                 adjacentY +=i;
                 if(validMove(adjacentY, adjacentX)){
                     if(fieldArray[adjacentY][adjacentX].getStatus() == Field.FieldStatus.COVERED){
-                        fieldArray[adjacentY][adjacentX].setCovered(false);
+                        fieldArray[adjacentY][adjacentX].setStatus(Field.FieldStatus.UNCOVERED);
                         if(getMinesAround(adjacentY, adjacentX) == 0)
                             fieldArray[adjacentY][adjacentX].setStatus(Field.FieldStatus.UNCOVERED);
                         else
