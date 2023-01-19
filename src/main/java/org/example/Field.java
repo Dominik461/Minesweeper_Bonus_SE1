@@ -33,7 +33,7 @@ public class Field {
     public void setStatus(FieldStatus status) {
         this.status = status;
     }
-    
+
     public void setBombsAround(int bombsAround) {
         this.bombsAround = bombsAround;
     }
