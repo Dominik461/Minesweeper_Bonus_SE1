@@ -30,34 +30,48 @@ public class GameManager {
     /**
      * Fills the array with Field objects that are created with the standard constructor
      * after that calls the setMines method to place mines
-     * @param bomb how many bomb there should be in each game
+     * @param y y coordinate of the first uncover move
+     * @param x x coordinate of the first uncover move
      */
     //Gets an empty array of Fields with the size of the board and how many bomb the game has
-    public void fillArray(int bomb){
-        for (int y = 0; y < size; y++) {
-            for (int x = 0; x < size; x++) {
+    public void fillArray(int y, int x){
+        for (int j = 0; j < size; j++) {
+            for (int i = 0; i < size; i++) {
             //Adds for each space in the array a Field object
-                fieldArray[y][x] = new Field();
+                fieldArray[j][i] = new Field();
             }
         }
         //Calls the setMines method to place the bomb before it is being returned for use
-        setMines(bomb);
+        setMines(y,x);
     }
 
     /**
      * Sets as many bombs as the int value of bombs. The do while loop is used to be sure that there a no duplicates
-     * @param bomb how many bomb there should be in each game
+     * @param fieldY y coordinate of the first uncover move
+     * @param fieldX X coordinate of the first uncover move
      */
     //Gets an array filled with Field objects with the size of the board and how many bomb the game has
-    private void setMines(int bomb) {
+    private void setMines(int fieldY, int fieldX) {
         //Coordinates to be used to for the placement of a mine
         int x, y;
-        for (int i = 0; i <= bomb; i++) {
+        for (int i = 0; i <= bombs; i++) {
             //Will loop until it finds a Field object that has not yet a mine
             do {
                 //Sets a random value that is between 0 and the size of the board -1
                 x = random.nextInt(size);
                 y = random.nextInt(size);
+                if(
+                        (x == fieldX-1 && y == fieldY-1) ||
+                        (x == fieldX-1 && y == fieldY) ||
+                        (x == fieldX-1 && y == fieldY+1) ||
+                        (x == fieldX && y == fieldY-1) ||
+                        (x == fieldX && y == fieldY) ||
+                        (x == fieldX && y == fieldY+1) ||
+                        (x == fieldX+1 && y == fieldY-1) ||
+                        (x == fieldX+1 && y == fieldY) ||
+                        (x == fieldX+1 && y == fieldY+1)
+                )
+                    continue;
                 //Checks if the Field object is already mined
                 if(fieldArray[y][x].getStatus() == Field.FieldStatus.COVERED)
                     fieldArray[y][x].setBomb(true);
@@ -104,10 +118,14 @@ public class GameManager {
 
             System.out.print("\n" + y + " |");
             for (int x = 0; x<size; x++){
-                if(fieldArray[y][x].getBombsAround() == 0)
-                    System.out.print(" " + fieldArray[y][x].getStatus().toString() + " ");
-                else
-                    System.out.print(" " + fieldArray[y][x].getBombsAround() + " ");
+                if(fieldArray[y][x] == null){
+                    System.out.print(" X ");
+                }else{
+                    if(fieldArray[y][x].getBombsAround() == 0)
+                        System.out.print(" " + fieldArray[y][x].getStatus().toString() + " ");
+                    else
+                        System.out.print(" " + fieldArray[y][x].getBombsAround() + " ");
+                }
             }
         }
         System.out.println();
@@ -115,7 +133,7 @@ public class GameManager {
 
     /**
      * Uncovers the selected field on the game board if it is still covered
-     * @param x  coordinate for the fieldArray
+     * @param x coordinate for the fieldArray
      * @param y coordinate for the fieldArray
      */
     /*
@@ -123,6 +141,9 @@ public class GameManager {
     then uncovers the field
      */
     public void uncover(int y, int x) {
+        if(fieldArray[y][x] == null){
+            fillArray(y,x);
+        }
         Field field = getFieldByCoordinates(y,x);
         if(validMove(y,x) && field.getStatus() == Field.FieldStatus.COVERED){
             fieldArray[y][x].setCovered(false);
@@ -132,7 +153,6 @@ public class GameManager {
                 revealNearbyField(y,x);
 
         }
-        //TODO change string X to " "
     }
 
     /**
@@ -171,7 +191,6 @@ public class GameManager {
                 counter++;
         }
 
-
         if(validMove(y+1, x-1)){
             if(fieldArray[y+1][x-1].getStatus() == Field.FieldStatus.BOMB)
                 counter++;
@@ -209,6 +228,8 @@ public class GameManager {
         int counter = 0;
         for (int y = 0; y < size; y++) {
             for (int x = 0; x < size; x++) {
+                if(fieldArray[y][x] == null)
+                    break;
                 if(fieldArray[y][x].getStatus() == Field.FieldStatus.FLAG)
                     counter++;
             }
@@ -239,8 +260,6 @@ public class GameManager {
                             revealNearbyField(adjacentY, adjacentX);
                     }
                 }
-
-
             }
         }
     }

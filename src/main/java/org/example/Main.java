@@ -31,7 +31,6 @@ public class Main {
         manager.setSize(size);
         manager.setFieldArray(fieldArray);
         manager.setBombs(bombs);
-        manager.fillArray(bombs);
 
         do {
             manager.fieldOutput();
