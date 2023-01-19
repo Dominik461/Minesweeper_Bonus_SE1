@@ -1,20 +1,8 @@
 package org.example;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import java.util.Scanner;
 
-
-/**
- * A simple http://logging.apache.org/log4j/2.x demo,
- * see file src/main/resources/log4j2.xml for configuration options
- * and A1.log containing debugging output.
- */
-
 public class Main {
-    private static Logger log = LogManager.getLogger(Main.class);
-
     /**
      * Your application's main entry point.
      *
