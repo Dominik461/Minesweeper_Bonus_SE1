@@ -5,6 +5,7 @@ import java.util.Random;
 public class GameManager {
     private int size, bombs;
     private Field[][] fieldArray;
+    private int[][] bombLocations;
     Random random = new Random(System.currentTimeMillis());
 
     /**
@@ -17,6 +18,7 @@ public class GameManager {
 
     public void setBombs(int bombs) {
         this.bombs = bombs;
+        bombLocations = new int[2][bombs];
     }
 
     /**
@@ -42,7 +44,7 @@ public class GameManager {
             }
         }
         //Calls the setMines method to place the bomb before it is being returned for use
-        setMines(y,x);
+        setBomb(y,x);
     }
 
     /**
@@ -51,13 +53,19 @@ public class GameManager {
      * @param fieldX X coordinate of the first uncover move
      */
     //Gets an array filled with Field objects with the size of the board and how many bomb the game has
-    private void setMines(int fieldY, int fieldX) {
+    private void setBomb(int fieldY, int fieldX) {
         //Coordinates to be used to for the placement of a mine
         int x, y;
-        for (int i = 0; i <= bombs; i++) {
+        boolean setBomb;
+        for (int i = 0; i < 5; i++) {
+            bombLocations[0][i]=-1;
+            bombLocations[1][i]=-1;
+        }
+        for (int i = 0; i < bombs; i++) {
             //Will loop until it finds a Field object that has not yet a mine
             do {
-                //Sets a random value that is between 0 and the size of the board -1
+                setBomb = true;
+                //Sets a random value that is between 0 and the size of the board-1
                 x = random.nextInt(size);
                 y = random.nextInt(size);
                 if(
@@ -72,10 +80,21 @@ public class GameManager {
                         (x == fieldX+1 && y == fieldY+1)
                 )
                     continue;
+
                 //Checks if the Field object is already mined
-                if(fieldArray[y][x].getStatus() == Field.FieldStatus.COVERED)
+                for (int j = 0; j < 5; j++) {
+                    if(bombLocations[0][j] == y && bombLocations[1][j] == x){
+                        setBomb = false;
+                        break;
+                    }
+                }
+
+                if(setBomb){
+                    bombLocations[0][i]=y;
+                    bombLocations[1][i]=x;
                     fieldArray[y][x].setStatus(Field.FieldStatus.BOMB);
-            } while(fieldArray[y][x].getStatus() == Field.FieldStatus.COVERED);
+                }
+            } while(!setBomb);
         }
     }
 
@@ -100,10 +119,20 @@ public class GameManager {
     If the field already has a flag it will be removed
      */
     public void placeOrRemoveFlag(int y, int x){
-        if(fieldArray[y][x].getStatus() == Field.FieldStatus.COVERED)
+        boolean wasBomb=false;
+        if(fieldArray[y][x].getStatus() == Field.FieldStatus.COVERED || fieldArray[y][x].getStatus() == Field.FieldStatus.BOMB)
             fieldArray[y][x].setStatus(Field.FieldStatus.FLAG);
-        else if(fieldArray[y][x].getStatus() == Field.FieldStatus.FLAG)
-            fieldArray[y][x].setStatus(Field.FieldStatus.COVERED);
+        else if(fieldArray[y][x].getStatus() == Field.FieldStatus.FLAG) {
+            for (int i = 0; i < bombs; i++) {
+                if (bombLocations[0][i] == y && bombLocations[1][i] == x) {
+                    fieldArray[y][x].setStatus(Field.FieldStatus.BOMB);
+                    wasBomb = true;
+                    break;
+                }
+            }
+            if (!wasBomb)
+                fieldArray[y][x].setStatus(Field.FieldStatus.COVERED);
+        }
     }
 
     /**
