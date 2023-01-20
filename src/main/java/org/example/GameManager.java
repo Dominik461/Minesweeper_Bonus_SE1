@@ -44,7 +44,7 @@ public class GameManager {
             }
         }
         //Calls the setMines method to place the bomb before it is being returned for use
-        setBomb(y,x);
+        setBombsInFieldArray(y,x);
     }
 
     /**
@@ -53,11 +53,11 @@ public class GameManager {
      * @param fieldX X coordinate of the first uncover move
      */
     //Gets an array filled with Field objects with the size of the board and how many bomb the game has
-    private void setBomb(int fieldY, int fieldX) {
+    private void setBombsInFieldArray(int fieldY, int fieldX) {
         //Coordinates to be used to for the placement of a mine
         int x, y;
         boolean setBomb;
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < bombs; i++) {
             bombLocations[0][i]=-1;
             bombLocations[1][i]=-1;
         }
@@ -82,7 +82,7 @@ public class GameManager {
                     continue;
 
                 //Checks if the Field object is already mined
-                for (int j = 0; j < 5; j++) {
+                for (int j = 0; j < bombs; j++) {
                     if(bombLocations[0][j] == y && bombLocations[1][j] == x){
                         setBomb = false;
                         break;
@@ -214,23 +214,8 @@ public class GameManager {
                 counter++;
         }
 
-        if(validMove(y, x-1)){
-            if(fieldArray[y][x-1].getStatus() == Field.FieldStatus.BOMB)
-                counter++;
-        }
-
-        if(validMove(y+1, x-1)){
-            if(fieldArray[y+1][x-1].getStatus() == Field.FieldStatus.BOMB)
-                counter++;
-        }
-
         if(validMove(y-1, x)){
             if(fieldArray[y-1][x].getStatus() == Field.FieldStatus.BOMB)
-                counter++;
-        }
-
-        if(validMove(y+1, x)){
-            if(fieldArray[y+1][x].getStatus() == Field.FieldStatus.BOMB)
                 counter++;
         }
 
@@ -239,8 +224,23 @@ public class GameManager {
                 counter++;
         }
 
+        if(validMove(y, x-1)){
+            if(fieldArray[y][x-1].getStatus() == Field.FieldStatus.BOMB)
+                counter++;
+        }
+
         if(validMove(y, x+1)){
             if(fieldArray[y][x+1].getStatus() == Field.FieldStatus.BOMB)
+                counter++;
+        }
+
+        if(validMove(y+1, x-1)){
+            if(fieldArray[y+1][x-1].getStatus() == Field.FieldStatus.BOMB)
+                counter++;
+        }
+
+        if(validMove(y+1, x)){
+            if(fieldArray[y+1][x].getStatus() == Field.FieldStatus.BOMB)
                 counter++;
         }
 
@@ -297,7 +297,7 @@ public class GameManager {
         for (int i = 0; i<size; i++){
             for (int j= 0; j<size; j++){
                 if((fieldArray[i][j].getStatus() == Field.FieldStatus.COVERED ||
-                        fieldArray[i][j].getStatus() == Field.FieldStatus.BOMB) && countFlags() == bombs){
+                        fieldArray[i][j].getStatus() == Field.FieldStatus.BOMB)){
                     win = false;
                     break;
                 }
