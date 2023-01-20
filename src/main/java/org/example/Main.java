@@ -38,6 +38,7 @@ public class Main {
                         manager.uncover(y, x);
                         if (manager.getFieldByCoordinates(y, x).getStatus() == Field.FieldStatus.BOMB) {
                             gameover = true;
+                            System.out.println("idiot");
                         }
                     }
                     case 2 -> {
@@ -51,6 +52,11 @@ public class Main {
                 }
             } catch (Exception e) {
                 throw new RuntimeException(e);
+            }
+            if(manager.checkWin()){
+                manager.fieldOutput();
+                System.out.println("\nYou won");
+                break;
             }
         }while(!gameover);
  }
