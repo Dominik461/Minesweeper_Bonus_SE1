@@ -2,41 +2,22 @@ package org.example;
 
 import java.util.Random;
 
+import static org.example.Main.bombLocations;
+
 /**
  * Responsible for all logic in the game
  */
 public class GameManager {
 
 
-    private int size;
-
-    private int bombs;
+    private static final int SIZE = Main.SIZE;
+    private static final int BOMBS = Main.BOMBS;
     /*
     private Field[][] fieldArray;
     */
 
-    private int[][] bombLocations;
-
     Random random = new Random(System.currentTimeMillis());
 
-
-    public void setSize(int size){
-        this.size = size;
-    }
-
-
-    public void setBombs(int bombs) {
-        this.bombs = bombs;
-        bombLocations = new int[2][bombs];
-    }
-
-    public int getSize(){
-        return size;
-    }
-
-    public int getBombs(){
-        return bombs;
-    }
     /*
     public void setFieldArray(Field[][] fieldArray){
         this.fieldArray = fieldArray;
@@ -44,8 +25,8 @@ public class GameManager {
     */
 
     public Field[][] fillArray(int y, int x, Field[][] fieldArray){
-        for (int j = 0; j < size; j++) {
-            for (int i = 0; i < size; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            for (int i = 0; i < SIZE; i++) {
             //Adds for each space in the array a Field object
                 fieldArray[j][i] = new Field();
             }
@@ -59,17 +40,17 @@ public class GameManager {
         //Coordinates to be used to for the placement of a mine
         int x, y;
         boolean setBomb;
-        for (int i = 0; i < bombs; i++) {
+        for (int i = 0; i < BOMBS; i++) {
             bombLocations[0][i]=-1;
             bombLocations[1][i]=-1;
         }
-        for (int i = 0; i < bombs; i++) {
+        for (int i = 0; i < BOMBS; i++) {
             //Will loop until it finds a Field object that has not yet a mine
             do {
                 setBomb = true;
                 //Sets a random value that is between 0 and the size of the board-1
-                x = random.nextInt(size);
-                y = random.nextInt(size);
+                x = random.nextInt(SIZE);
+                y = random.nextInt(SIZE);
                 if(
                         (x == fieldX-1 && y == fieldY-1) ||
                         (x == fieldX-1 && y == fieldY) ||
@@ -84,7 +65,7 @@ public class GameManager {
                     continue;
 
                 //Checks if the Field object is already mined
-                for (int j = 0; j < bombs; j++) {
+                for (int j = 0; j < BOMBS; j++) {
                     if(bombLocations[0][j] == y && bombLocations[1][j] == x){
                         setBomb = false;
                         break;
@@ -103,16 +84,16 @@ public class GameManager {
 
 
     private boolean validMove(int y, int x){
-        return x >= 0 && x < size && y >= 0 && y < size;
+        return x >= 0 && x < SIZE && y >= 0 && y < SIZE;
     }
 
 
-    public Field[][] placeOrRemoveFlag(int y, int x, Field[][] fieldArray){
+    public Field[][] placeOrRemoveFlag(int y, int x, Field[][] fieldArray, int[][] bombLocations){
         boolean wasBomb=false;
         if(fieldArray[y][x].getStatus() == Field.FieldStatus.COVERED || fieldArray[y][x].getStatus() == Field.FieldStatus.BOMB)
             fieldArray[y][x].setStatus(Field.FieldStatus.FLAG);
         else if(fieldArray[y][x].getStatus() == Field.FieldStatus.FLAG) {
-            for (int i = 0; i < bombs; i++) {
+            for (int i = 0; i < BOMBS; i++) {
                 if (bombLocations[0][i] == y && bombLocations[1][i] == x) {
                     fieldArray[y][x].setStatus(Field.FieldStatus.BOMB);
                     wasBomb = true;
@@ -126,14 +107,14 @@ public class GameManager {
     }
 
     public void fieldOutput(Field[][] fieldArray) {
-        System.out.println("Total bombs: "+ bombs+" flags placed: "+countFlags(fieldArray));
+        System.out.println("Total bombs: "+ BOMBS +" flags placed: "+countFlags(fieldArray));
         System.out.println("    0  1  2  3  4  5  6  7  8  9");
         System.out.print("---------------------------------");
 
-        for (int y = 0; y<size; y++){
+        for (int y = 0; y< SIZE; y++){
 
             System.out.print("\n" + y + " |");
-            for (int x = 0; x<size; x++){
+            for (int x = 0; x< SIZE; x++){
                 if(fieldArray[y][x] == null){
                     System.out.print(" X ");
                 }else{
@@ -156,6 +137,8 @@ public class GameManager {
             else
                 revealNearbyField(y,x, fieldArray);
 
+        } else if (validMove(y,x) && fieldArray[y][x].getStatus() == Field.FieldStatus.UNCOVERED) {
+            System.out.println("\nField is already uncovered\n");
         }
         return  fieldArray;
     }
@@ -170,7 +153,7 @@ public class GameManager {
     private int getBombsAround(int y, int x){
         int counter = 0;
 
-        for (int i = 0; i < bombs; i++) {
+        for (int i = 0; i < BOMBS; i++) {
             if (
                     (bombLocations[0][i] == y-1 && bombLocations[1][i] == x-1 && validMove(y-1, x-1))||
                     (bombLocations[0][i] == y-1 && bombLocations[1][i] == x && validMove(y-1, x))||
@@ -190,8 +173,8 @@ public class GameManager {
 
     private int countFlags(Field[][] fieldArray){
         int counter = 0;
-        for (int y = 0; y < size; y++) {
-            for (int x = 0; x < size; x++) {
+        for (int y = 0; y < SIZE; y++) {
+            for (int x = 0; x < SIZE; x++) {
                 if(fieldArray[y][x] == null)
                     break;
                 if(fieldArray[y][x].getStatus() == Field.FieldStatus.FLAG)
@@ -224,16 +207,35 @@ public class GameManager {
 
     public boolean checkWin(Field[][] fieldArray) {
         boolean win = true;
-        for (int i = 0; i<size; i++){
-            for (int j= 0; j<size; j++){
+        for (int i = 0; i< SIZE; i++){
+            for (int j = 0; j< SIZE; j++){
                 if((fieldArray[i][j].getStatus() == Field.FieldStatus.COVERED ||
-                        fieldArray[i][j].getStatus() == Field.FieldStatus.BOMB)){
+                        fieldArray[i][j].getStatus() == Field.FieldStatus.BOMB) && countFlags(fieldArray) != BOMBS){
                     win = false;
                     break;
                 }
             }
         }
         return win;
+    }
+
+    public void showBombs(Field[][] fieldArray){
+        System.out.println("These would have been the bombs:");
+        System.out.println("    0  1  2  3  4  5  6  7  8  9");
+        System.out.print("---------------------------------");
+
+        for (int y = 0; y< SIZE; y++){
+
+            System.out.print("\n" + y + " |");
+            for (int x = 0; x< SIZE; x++){
+                if(fieldArray[y][x].getStatus() == Field.FieldStatus.BOMB){
+                    System.out.print(" Q ");
+                } else {
+                    System.out.print(" " + fieldArray[y][x].getStatus().toString() + " ");
+                }
+
+            }
+        }
     }
 }
 

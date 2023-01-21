@@ -11,18 +11,20 @@ public class Main {
      *
      * @param args Yet unused
      */
+    final static int SIZE = 10, BOMBS = 15;
+    public static int[][] bombLocations = new int[2][BOMBS];
 
     public static void main( String[] args ) {
         GameManager manager = new GameManager();
 
-        final int size = 10, bombs = 15;
+
         String testInput;
         int x,y;
-        Field [][] fieldArray = new Field[size][size];
+        Field [][] fieldArray = new Field[SIZE][SIZE];
         boolean gameover = false, firstMove = true;
-        manager.setSize(size);
+        //manager.setSize(SIZE);
         //manager.setFieldArray(fieldArray);
-        manager.setBombs(bombs);
+        // manager.setBombs(BOMBS);
         do {
             x=-1;
             y=-1;
@@ -49,10 +51,10 @@ public class Main {
                         testInput = "";
                     }
 
-                    if((y<0 || y>size)&&!testInput.equals(""))
+                    if((y<0 || y> SIZE)&&!testInput.equals(""))
                         System.out.println("Number entered was not inside playing area");
 
-                }while (y<0 || y>size);
+                }while (y<0 || y> SIZE);
 
                 do{
                     testInput=" ";
@@ -66,10 +68,10 @@ public class Main {
                         testInput = "";
                     }
 
-                    if((x<0 || x>size)&&!testInput.equals(""))
+                    if((x<0 || x> SIZE)&&!testInput.equals(""))
                         System.out.println("Number entered was not inside playing area");
 
-                }while (x<0 || x>size);
+                }while (x<0 || x> SIZE);
 
                 if(firstMove)
                     fieldArray = manager.fillArray(y,x,fieldArray);
@@ -81,11 +83,11 @@ public class Main {
                         if (fieldArray[y][x].getStatus() == Field.FieldStatus.BOMB) {
                             gameover = true;
                             System.out.println("idiot");
+                            manager.showBombs(fieldArray);
                         }
                     }
                     case "2" -> {
-
-                        fieldArray = manager.placeOrRemoveFlag(y,x, fieldArray);
+                        fieldArray = manager.placeOrRemoveFlag(y,x, fieldArray, bombLocations);
                     }
                     default -> System.out.println("Please choose from the options above");
                 }
@@ -101,4 +103,5 @@ public class Main {
             firstMove= false;
         }while(!gameover);
  }
+
 }

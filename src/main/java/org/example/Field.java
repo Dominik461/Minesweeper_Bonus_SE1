@@ -3,6 +3,12 @@ package org.example;
 public class Field {
     private FieldStatus status;
     private int bombsAround;
+
+    //used only for testing
+    public Field(FieldStatus status) {
+        this.status = status;
+    }
+
     /**
      * Sets the values for each variable when creating an object
      */
