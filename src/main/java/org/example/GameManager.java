@@ -2,58 +2,60 @@ package org.example;
 
 import java.util.Random;
 
+/**
+ * Responsible for all logic in the game
+ */
 public class GameManager {
-    private int size, bombs;
+
+
+    private int size;
+
+    private int bombs;
+    /*
     private Field[][] fieldArray;
+    */
+
     private int[][] bombLocations;
+
     Random random = new Random(System.currentTimeMillis());
 
-    /**
-     * This will set the size for later use as the reference of the board size
-     * @param size is the size of the game board area
-     */
+
     public void setSize(int size){
         this.size = size;
     }
+
 
     public void setBombs(int bombs) {
         this.bombs = bombs;
         bombLocations = new int[2][bombs];
     }
 
-    /**
-     * Sets the array for each field of the playing board
-     * @param fieldArray array with fields to use as the playing area
-     */
+    public int getSize(){
+        return size;
+    }
+
+    public int getBombs(){
+        return bombs;
+    }
+    /*
     public void setFieldArray(Field[][] fieldArray){
         this.fieldArray = fieldArray;
     }
+    */
 
-    /**
-     * Fills the array with Field objects that are created with the standard constructor
-     * after that calls the setMines method to place mines
-     * @param y y coordinate of the first uncover move
-     * @param x x coordinate of the first uncover move
-     */
-    //Gets an empty array of Fields with the size of the board and how many bomb the game has
-    public void fillArray(int y, int x){
+    public Field[][] fillArray(int y, int x, Field[][] fieldArray){
         for (int j = 0; j < size; j++) {
             for (int i = 0; i < size; i++) {
             //Adds for each space in the array a Field object
                 fieldArray[j][i] = new Field();
             }
         }
-        //Calls the setMines method to place the bomb before it is being returned for use
-        setBombsInFieldArray(y,x);
+        //Calls the setBombsInFieldArray method to place the bombs before it is used
+        return setBombsInFieldArray(y,x, fieldArray);
     }
 
-    /**
-     * Sets as many bombs as the int value of bombs. The do while loop is used to be sure that there a no duplicates
-     * @param fieldY y coordinate of the first uncover move
-     * @param fieldX X coordinate of the first uncover move
-     */
-    //Gets an array filled with Field objects with the size of the board and how many bomb the game has
-    private void setBombsInFieldArray(int fieldY, int fieldX) {
+
+    private Field[][] setBombsInFieldArray(int fieldY, int fieldX, Field[][] fieldArray) {
         //Coordinates to be used to for the placement of a mine
         int x, y;
         boolean setBomb;
@@ -94,31 +96,18 @@ public class GameManager {
                     bombLocations[1][i]=x;
                     fieldArray[y][x].setStatus(Field.FieldStatus.BOMB);
                 }
-            } while(!setBomb);
+            } while(bombLocations[0][i] == -1 && bombLocations[1][i] == -1);
         }
+        return fieldArray;
     }
 
-    /**
-     * Checks if a given move is with in the game board area
-     * @param x is the x coordinate of the entered field
-     * @param y is the y coordinate of the entered field
-     * @return will be True if it is in the game board area. Otherwise, it will return false.
-     */
-    //Checks if the move is in the board
+
     private boolean validMove(int y, int x){
         return x >= 0 && x < size && y >= 0 && y < size;
     }
 
-    /**
-     * If the field is still covered a "flag" will be placed on the field. If there is already a "flag" it will be removed.
-     * @param x coordinate for the fieldArray
-     * @param y coordinate for the fieldArray
-     */
-    /*
-    Sets a Flag if the field is still covered
-    If the field already has a flag it will be removed
-     */
-    public void placeOrRemoveFlag(int y, int x){
+
+    public Field[][] placeOrRemoveFlag(int y, int x, Field[][] fieldArray){
         boolean wasBomb=false;
         if(fieldArray[y][x].getStatus() == Field.FieldStatus.COVERED || fieldArray[y][x].getStatus() == Field.FieldStatus.BOMB)
             fieldArray[y][x].setStatus(Field.FieldStatus.FLAG);
@@ -133,13 +122,11 @@ public class GameManager {
             if (!wasBomb)
                 fieldArray[y][x].setStatus(Field.FieldStatus.COVERED);
         }
+        return fieldArray;
     }
 
-    /**
-     *Prints out the game board with each Field from the fieldArray
-     */
-    public void fieldOutput() {
-        System.out.println("Total bombs: "+ bombs+" flags placed: "+countFlags());
+    public void fieldOutput(Field[][] fieldArray) {
+        System.out.println("Total bombs: "+ bombs+" flags placed: "+countFlags(fieldArray));
         System.out.println("    0  1  2  3  4  5  6  7  8  9");
         System.out.print("---------------------------------");
 
@@ -160,52 +147,26 @@ public class GameManager {
         System.out.println();
     }
 
-    /**
-     * Uncovers the selected field on the game board if it is still covered
-     * @param x coordinate for the fieldArray
-     * @param y coordinate for the fieldArray
-     */
-    /*
-    Checks if the chosen field is covered, exists, is not a bomb and not a flag
-    then uncovers the field
-     */
-    public void uncover(int y, int x) {
-        if(fieldArray[y][x] == null){
-            fillArray(y,x);
-        }
-        Field field = getFieldByCoordinates(y,x);
-        if(validMove(y,x) && field.getStatus() == Field.FieldStatus.COVERED){
+    public Field[][] uncover(int y, int x, Field[][] fieldArray) {
+
+        if(validMove(y,x) && fieldArray[y][x].getStatus() == Field.FieldStatus.COVERED){
             fieldArray[y][x].setStatus(Field.FieldStatus.UNCOVERED);
             if(getBombsAround(y,x) != 0)
                 fieldArray[y][x].setBombsAround(getBombsAround(y, x));
             else
-                revealNearbyField(y,x);
+                revealNearbyField(y,x, fieldArray);
 
         }
+        return  fieldArray;
     }
 
-    /**
-     * Gets the selected Field object from the fieldArray
-     * @param x coordinate for the fieldArray
-     * @param y coordinate for the fieldArray
-     * @return the selected Field object
-     */
+
     /*
-    Returns the field at the given coordinates
-     */
     public Field getFieldByCoordinates(int y, int x){
         return fieldArray[y][x];
     }
+    */
 
-    /**
-     * Counts how many bombs there are around the selected Field object
-     * @param y coordinate for the fieldArray
-     * @param x coordinate for the fieldArray
-     * @return an int value of how many bombs there are
-     */
-    /*
-    Checks for mines around the selected field
-     */
     private int getBombsAround(int y, int x){
         int counter = 0;
 
@@ -226,7 +187,8 @@ public class GameManager {
         return counter;
     }
 
-    private int countFlags(){
+
+    private int countFlags(Field[][] fieldArray){
         int counter = 0;
         for (int y = 0; y < size; y++) {
             for (int x = 0; x < size; x++) {
@@ -239,7 +201,8 @@ public class GameManager {
         return counter;
     }
 
-    private void revealNearbyField(int y, int x){
+
+    private void revealNearbyField(int y, int x, Field[][] fieldArray){
         int adjacentX, adjacentY;
         for (int i = -1; i < 2; i++) {
             for (int j = -1; j < 2; j++) {
@@ -252,21 +215,14 @@ public class GameManager {
                 adjacentY +=i;
                 if(validMove(adjacentY, adjacentX)){
                     if(fieldArray[adjacentY][adjacentX].getStatus() == Field.FieldStatus.COVERED){
-                        fieldArray[adjacentY][adjacentX].setStatus(Field.FieldStatus.UNCOVERED);
-                        if(getBombsAround(adjacentY, adjacentX) == 0)
-                            fieldArray[adjacentY][adjacentX].setStatus(Field.FieldStatus.UNCOVERED);
-                        else
-                            fieldArray[adjacentY][adjacentX].setBombsAround(getBombsAround(adjacentY, adjacentX));
-
-                        if(fieldArray[adjacentY][adjacentX].getBombsAround() == 0)
-                            revealNearbyField(adjacentY, adjacentX);
+                        uncover(adjacentY,adjacentX, fieldArray);
                     }
                 }
             }
         }
     }
 
-    public boolean checkWin() {
+    public boolean checkWin(Field[][] fieldArray) {
         boolean win = true;
         for (int i = 0; i<size; i++){
             for (int j= 0; j<size; j++){
