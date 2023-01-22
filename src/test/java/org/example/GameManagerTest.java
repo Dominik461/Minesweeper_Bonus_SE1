@@ -27,12 +27,20 @@ public class GameManagerTest {
             }
         }
 
+        //will be overwritten
+        Field[][] fieldArray2 = manager.fillArray(0,0, testArray);
+        for (int i = 0; i<SIZE; i++){
+            for (int j = 0; j<SIZE; j++){
+                Assert.assertNotNull(fieldArray2[j][i]);
+            }
+        }
+
     }
 
     @Test
     public void TestPlaceOrRemoveFlag(){
         createArray();
-        //Uncovered -> Flag -> Uncovered
+        //covered -> Flag -> covered
         testArray = manager.placeOrRemoveFlag(1,1, testArray, bombLocations);
         testArray = manager.placeOrRemoveFlag(3,5, testArray, bombLocations);
         Assert.assertSame(Field.FieldStatus.FLAG, testArray[1][1].getStatus());
@@ -41,6 +49,14 @@ public class GameManagerTest {
         testArray = manager.placeOrRemoveFlag(3,5, testArray, bombLocations);
         Assert.assertSame(Field.FieldStatus.COVERED, testArray[1][1].getStatus());
         Assert.assertSame(Field.FieldStatus.COVERED, testArray[3][5].getStatus());
+
+        //uncovered -> uncovered (can't place flag on uncovered)
+        testArray[4][1].setStatus(Field.FieldStatus.UNCOVERED);
+        testArray[5][1].setStatus(Field.FieldStatus.UNCOVERED);
+        testArray = manager.placeOrRemoveFlag(4,1, testArray, bombLocations);
+        testArray = manager.placeOrRemoveFlag(5,1, testArray, bombLocations);
+        Assert.assertSame(Field.FieldStatus.UNCOVERED, testArray[4][1].getStatus());
+        Assert.assertSame(Field.FieldStatus.UNCOVERED, testArray[5][1].getStatus());
 
         //Bomb -> Flag -> Bomb
         bombLocations[0][2] = 2;
@@ -60,11 +76,6 @@ public class GameManagerTest {
 
     }
 
-    @Test //TODO?
-    public void testFieldOutput(){
-
-    }
-
     @Test
     public void testUncover(){
         createArray();
@@ -74,6 +85,10 @@ public class GameManagerTest {
 
         testArray = manager.uncover(4,5, testArray);
         Assert.assertEquals(Field.FieldStatus.UNCOVERED, testArray[4][5].getStatus());
+
+        testArray = manager.uncover(4,5, testArray);
+        Assert.assertEquals(Field.FieldStatus.UNCOVERED, testArray[4][5].getStatus());
+        //if a bomb is uncovered the method will not be called
     }
 
     @Test
