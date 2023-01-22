@@ -3,6 +3,7 @@ package org.example;
 import org.junit.Assert;
 import org.junit.Test;
 
+import static org.example.Main.BOMBS;
 import static org.example.Main.bombLocations;
 
 public class GameManagerTest {
@@ -93,6 +94,7 @@ public class GameManagerTest {
 
     @Test
     public void testCheckWin(){
+        createArray();
         int flag = 0;
         createArray();
         Assert.assertFalse(manager.checkWin(testArray));
@@ -102,6 +104,8 @@ public class GameManagerTest {
                if(flag<15) {
                    testArray[i][j].setStatus(Field.FieldStatus.FLAG);
                    flag++;
+               } else{
+                   testArray[i][j].setStatus(Field.FieldStatus.UNCOVERED);
                }
             }
         }
