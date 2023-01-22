@@ -4,9 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d6ffafde-e7c7-495c-86f0-7a5466964cd1" name="Changes" comment="Changed all the x &amp; y coordinates to be in line with the array">
+    <list default="true" id="d6ffafde-e7c7-495c-86f0-7a5466964cd1" name="Changes" comment="Updated all methods to have it easier with unit test">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Field.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Field.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/GameManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/GameManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,18 +38,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "settings.editor.selected.configurable": "preferences.keymap"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
-  <component name="RunManager">
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="org.example" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="org.example.Main" />
       <module name="Minesweeper_Bonus_SE1" />
@@ -54,6 +69,35 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Minesweeper_Bonus_SE1 [javadoc:javadoc]" type="MavenRunConfiguration" factoryName="Maven" nameIsGenerated="true">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="javadoc:javadoc" />
+              </list>
+            </option>
+            <option name="pomFileName" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Application.Main" />
+      <item itemvalue="Maven.Minesweeper_Bonus_SE1 [javadoc:javadoc]" />
+    </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -68,6 +112,20 @@
       <workItem from="1674054090549" duration="1178000" />
       <workItem from="1674055612855" duration="7061000" />
       <workItem from="1674076026861" duration="1772000" />
+      <workItem from="1674119540955" duration="1163000" />
+      <workItem from="1674125720925" duration="646000" />
+      <workItem from="1674153579335" duration="106000" />
+      <workItem from="1674159327158" duration="3691000" />
+      <workItem from="1674227266119" duration="8973000" />
+      <workItem from="1674239222713" duration="3243000" />
+      <workItem from="1674242807339" duration="1226000" />
+      <workItem from="1674303702783" duration="7338000" />
+      <workItem from="1674312244328" duration="165000" />
+      <workItem from="1674312423169" duration="31000" />
+      <workItem from="1674312468641" duration="334000" />
+      <workItem from="1674312814713" duration="5667000" />
+      <workItem from="1674319925866" duration="10642000" />
+      <workItem from="1674382933321" duration="4711000" />
     </task>
     <task id="LOCAL-00001" summary="Renamed Classes">
       <created>1673370113016</created>
@@ -125,8 +183,70 @@
       <option name="project" value="LOCAL" />
       <updated>1674076416464</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Fixed the revealNearbyField method">
+      <created>1674080261104</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1674080261104</updated>
+    </task>
+    <task id="LOCAL-00010" summary="First uncover should no longer reveal only one field">
+      <created>1674161110811</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1674161110811</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Removed unused logger">
+      <created>1674161148365</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1674161148365</updated>
+    </task>
+    <task id="LOCAL-00012" summary="You can now place and remove flags from bombs again">
+      <created>1674231464660</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1674231464660</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Fixed a bug with setting bombs">
+      <created>1674240081041</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1674240081041</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Main loop should now give the player information if the input was wrong without crashing the game">
+      <created>1674240206296</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1674240206296</updated>
+    </task>
+    <task id="LOCAL-00015" summary="The getBombsAround method is now working correctly">
+      <created>1674241180118</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1674241180118</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Updated all methods to have it easier with unit test">
+      <created>1674326190582</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1674326190582</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
+  </component>
+  <component name="TerminalProjectNonSharedOptionsProvider">
+    <envs>
+      <env key="apache-maven-3.8.7" value="&quot;C:\Program Files\Java\apache-maven-3.8.7\bin&quot;" />
+      <env key="jdk-19" value="&quot;C:\Program Files\Java\jdk-19\bin&quot;" />
+    </envs>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
@@ -152,17 +272,33 @@
     <MESSAGE value="replaced Field class booleans with FieldStatus enum" />
     <MESSAGE value="replaced Field class booleans with FieldStatus enum&#10;-errors" />
     <MESSAGE value="removed unnecessary comments" />
-    <option name="LAST_COMMIT_MESSAGE" value="removed unnecessary comments" />
+    <MESSAGE value="Fixed the revealNearbyField method" />
+    <MESSAGE value="First uncover should no longer reveal only one field" />
+    <MESSAGE value="Removed unused logger" />
+    <MESSAGE value="You can now place and remove flags from bombs again" />
+    <MESSAGE value="Fixed a bug with setting bombs" />
+    <MESSAGE value="Main loop should now give the player information if the input was wrong without crashing the game" />
+    <MESSAGE value="The getBombsAround method is now working correctly" />
+    <MESSAGE value="Updated all methods to have it easier with unit test" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated all methods to have it easier with unit test" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/org/example/GameManager.java</url>
-          <line>220</line>
-          <option name="timeStamp" value="10" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="org.example.GameManager" memberName="fieldArray" />
+      </pinned-members>
+    </pin-to-top-manager>
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="((org.example.Field[][])((GameManager)this).fieldArray)[0][3]" custom="org.example.GameManager,org.example.Field[][]" />
+      </configuration>
+    </watches-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Bonus_Minesweeper$Main.ic" NAME="Main Coverage Results" MODIFIED="1674241685038" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>
